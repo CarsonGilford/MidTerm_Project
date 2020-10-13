@@ -35,5 +35,9 @@ public class CatWalk : MonoBehaviour
             characterScale.x = 1;
             transform.localScale = characterScale;
         }
+        Ray2D myRay = new Ray2D(transform.position, transform.right);
+        float myMaxRayDist = 1.1f;
+        Debug.DrawRay(myRay.origin, myRay.direction * myMaxRayDist, Color.yellow);
+
     }
 }

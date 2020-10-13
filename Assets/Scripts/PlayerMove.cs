@@ -5,34 +5,50 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     // Update is called once per frame
+    float myMaxRayDist = 1.7f;
+    public float movementSpeed;
+    Vector2 movementVector;
+    Vector2 oriantation;
+    string Door = "Door";
+    //public AudioSource bark;
+
+    //public GameObject PreFab_Door;
+  
     void Update()
     {
-        //if player holds down UP ARROW, then move up
-        if (Input.GetKey(KeyCode.UpArrow)){
-            transform.position += new Vector3(0f, 0.1f, 0f);
-        }
+        movementVector.x = Input.GetAxis("Horizontal");
+        movementVector.y = Input.GetAxis("Vertical");
+        movementVector = movementVector.normalized;
 
-        //if Player holds down RIGHT ARROW, then move right
-        if (Input.GetKey(KeyCode.RightArrow)){
-            transform.position += new Vector3(0.1f, 0f, 0f);
-            //Change Sprite Direction
-            Vector3 characterScale = transform.localScale;
-            characterScale.x = -1;
-            transform.localScale = characterScale;
-        }
+        if(movementVector != Vector2.zero) oriantation = movementVector;
 
-        //if Player holds down DOWN ARROW, then move down
-        if (Input.GetKey(KeyCode.DownArrow)){
-            transform.position += new Vector3(0f, -0.1f, 0f);
-        }
+        transform.position += new Vector3(movementVector.x,movementVector.y,0) * Time.deltaTime * movementSpeed;
 
-        //if Player holds down LEFT ARROW, then move left
         if (Input.GetKey(KeyCode.LeftArrow)){
-            transform.position += new Vector3(-0.1f, 0f, 0f); 
             //Change Sprite Direction
             Vector3 characterScale = transform.localScale;
-            characterScale.x = 1;
+            characterScale.x = 0.6784236f;
             transform.localScale = characterScale;
+        }
+        if (Input.GetKey(KeyCode.RightArrow)){
+            //Change Sprite Direction
+            Vector3 characterScale = transform.localScale;
+            characterScale.x = -0.6784236f;
+            transform.localScale = characterScale;
+        }
+
+        Ray2D myRay = new Ray2D(transform.position, oriantation);
+        RaycastHit2D myRayHit = Physics2D.Raycast(myRay.origin, myRay.direction, myMaxRayDist);
+        Debug.DrawRay(myRay.origin, myRay.direction * myMaxRayDist, Color.yellow);
+
+        if(myRayHit.collider != null && Input.GetMouseButtonDown(0)){
+            GameObject go = GameObject.Find (Door);
+            //if the tree exist then destroy it
+        if (go){
+            Destroy (go.gameObject);
+            Debug.Log("Raycast is hitting" + myRayHit.collider.name);
+        }
         }
     }
+    
 }
