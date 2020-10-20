@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     Vector2 movementVector;
     Vector2 oriantation;
     string Door = "Door";
+    string Door2 = "Door2";
     //public AudioSource bark;
 
     //public GameObject PreFab_Door;
@@ -36,14 +37,34 @@ public class PlayerMove : MonoBehaviour
             characterScale.x = -0.6784236f;
             transform.localScale = characterScale;
         }
+        if (Input.GetKey(KeyCode.A)){
+            //Change Sprite Direction
+            Vector3 characterScale = transform.localScale;
+            characterScale.x = 0.6784236f;
+            transform.localScale = characterScale;
+        }
+        if (Input.GetKey(KeyCode.D)){
+            //Change Sprite Direction
+            Vector3 characterScale = transform.localScale;
+            characterScale.x = -0.6784236f;
+            transform.localScale = characterScale;
+        }
 
         Ray2D myRay = new Ray2D(transform.position, oriantation);
         RaycastHit2D myRayHit = Physics2D.Raycast(myRay.origin, myRay.direction, myMaxRayDist);
         Debug.DrawRay(myRay.origin, myRay.direction * myMaxRayDist, Color.yellow);
 
-        if(myRayHit.collider != null && Input.GetMouseButtonDown(0)){
+        if(myRayHit.collider != null &&  Input.GetKey(KeyCode.P)){
             GameObject go = GameObject.Find (Door);
-            //if the tree exist then destroy it
+        //if the tree exist then destroy it
+        if (go){
+            Destroy (go.gameObject);
+            Debug.Log("Raycast is hitting" + myRayHit.collider.name);
+        }
+        }
+        if(myRayHit.collider != null &&  Input.GetKey(KeyCode.L)){
+            GameObject go = GameObject.Find (Door2);
+        //if the tree exist then destroy it
         if (go){
             Destroy (go.gameObject);
             Debug.Log("Raycast is hitting" + myRayHit.collider.name);
