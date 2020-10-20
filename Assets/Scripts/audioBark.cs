@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class audioBark : MonoBehaviour
 {
+    //Purpose: Play sound when bark attack plays
+    //Usage:Plae on sound for dog bark
     AudioSource myAudioSource;//save in inspector
     // Start is called before the first frame update
     void Start()

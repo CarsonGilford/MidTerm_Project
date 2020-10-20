@@ -6,6 +6,7 @@ using UnityEngine;
 //Usage: put this on obj face along +x axis(red axis)
 public class RobotStearing : MonoBehaviour
 {
+    string Player = "Durby";
     // Update is called once per frame
     void Update()
     {

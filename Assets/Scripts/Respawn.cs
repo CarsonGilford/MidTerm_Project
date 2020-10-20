@@ -20,9 +20,9 @@ public Transform SpawnPoint;
      else {
          respawn = false;
      }
-     if (respawn) {
+     if (respawn == true) {
          transform.position = SpawnPoint.position;
-         PlayerLife = 100;
+         PlayerLife = 1;
      }
  }
 }
